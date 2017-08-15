@@ -8,35 +8,36 @@ declare let DG: any;
 		styleUrls: ['map.component.less']
 })
 export class MapComponent implements OnInit {
-
-		markers: any;
-
-		ngOnInit() {
-				DG.then(() => {
-						let map = DG.map('map', {
-								'center': [46.48, 30.74],
-								'zoom': 11,
-								'fullscreenControl': false
-						});
-
-						this.markers = DG.featureGroup();
-						// DG.controll.localion.addTo(map);
-						map.on('click', this.eventHandler.bind(this));
-				})
-		}
-
-		eventHandler() {
-				console.log('hello')
-		}
+	
+	saveButton = 'Save markers';
+	showButton = 'Show markers';
+	markers = DG.featureGroup();
+	isShow = true;
+	map: any;
+	
+	ngOnInit() {
+		DG.then(() => {
+			this.map = DG.map('map', {
+				center: [46.48, 30.74],
+				zoom: 11,
+				fullscreenControl: false,
+				doubleClickZoom: false
+			});
 		
-		saveButton = 'Save markers';
-		showButton = 'Show markers';
+			this.map.on('click', this.eventHandler.bind(this));
+			this.markers.addTo(this.map);
+		})
+	}
 
-		saveMarkers() {
-				console.log('save markers')
-		}
+	eventHandler(e) {
+		DG.marker([e.latlng.lat, e.latlng.lng]).addTo(this.markers);
+	}
 
-		toggleMarkers() {
-				console.log('toggle markers')
-		}
+	saveMarkers() {}
+
+	toggleMarkers(e) {
+		e.stopPropagation();
+		this.isShow = !this.isShow;
+		this.isShow ? this.markers.addTo(this.map) : this.markers.removeFrom(this.map);
+	}
 }
