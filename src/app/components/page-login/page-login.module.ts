@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { PageLoginComponent } from './page-login.component';
 
 @NgModule({
-    declarations: [
-        PageLoginComponent
-    ],
-    imports: [
-        GroupFormModule
-    ],
-    providers: [],
-    exports: [PageLoginComponent]
+		declarations: [
+				PageLoginComponent
+		],
+		imports: [
+				GroupFormModule
+		],
+		providers: [],
+		exports: [PageLoginComponent]
 })
 export class PageLoginModule {}

@@ -1,0 +1,44 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm)">
+		<div class="form-group">
+			<label for="registration-name">Name</label>
+	
+			<input type="text"
+					class="form-control"
+					id="registration-name"
+					placeholder="User name"
+					formControlName="name">
+	
+			<div *ngIf="formErrors.name" class="alert alert-danger">{{ formErrors.name }}</div>
+		</div>
+
+
+	<div class="form-group">
+		<label for="registration-email">Email</label>
+
+		<input type="email"
+			   class="form-control"
+			   id="registration-email"
+			   placeholder="Email"
+			   formControlName="email">
+
+		<div *ngIf="formErrors.email" class="alert alert-danger">{{ formErrors.email }}</div>
+	</div>
+
+	<div class="form-group">
+		<label for="registration-password">Password</label>
+
+		<input type="password"
+			   class="form-control"
+			   id="registration-password"
+			   placeholder="Password"
+			   formControlName="password">
+		
+		<div *ngIf="formErrors.password" class="alert alert-danger">{{ formErrors.password }}</div>
+	</div>
+	
+	<button type="submit" 
+			class="btn btn-default"
+			[disabled]="!registrationForm.valid">
+			Save
+	</button>
+</form>
