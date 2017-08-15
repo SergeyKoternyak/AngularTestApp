@@ -1,0 +1,19 @@
+<div class="tabs">
+    <ul class="tabs-control">
+        <li (click)="showTab('signIn')"
+            [class.active]="isActiveTab('signIn')"
+            class="tabs-control__item" >
+            Sing in
+        </li>
+        <li (click)="showTab('registration')"
+            [class.active]="isActiveTab('registration')"
+            class="tabs-control__item">
+            Registration
+        </li>
+    </ul>
+
+    <div class="tabs-content">
+        <form-login *ngIf="isActiveTab('signIn')"></form-login>
+        <form-registration *ngIf="isActiveTab('registration')"></form-registration>
+    </div>
+</div>
