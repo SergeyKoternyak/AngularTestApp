@@ -1,4 +1,4 @@
-<div id="map">
+<div id="map" [class.load]="showPreloader">
 	<ul class="markers-control">
 		<li class="markers-control__btn markers-control__btn--lg"
 			(click)="saveMarkers()">
@@ -16,4 +16,6 @@
 			<div class="markers-control__tooltip">{{showButton}}</div>
 		</li>
 	</ul>
+
+	<div class="preloader-wrapper" ngIf="showPreloader"></div>
 </div>

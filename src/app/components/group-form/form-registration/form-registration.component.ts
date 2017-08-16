@@ -77,6 +77,10 @@ export class FormRegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.userService.login(this.registrationForm.value);
+		this.userService.registration(this.registrationForm.value).subscribe(
+			(data) => {
+				console.log(data);
+			}
+		);
 	}
 }

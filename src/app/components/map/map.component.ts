@@ -1,16 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+
+import { MapService } from './map.service'
+
 declare let DG: any;
 
 
 @Component({
 		selector: 'map',
 		templateUrl: 'map.component.html',
-		styleUrls: ['map.component.less']
+		styleUrls: ['map.component.less'],
+		providers: [MapService]
 })
 export class MapComponent implements OnInit {
+	constructor(private mapService: MapService) { }
 	
 	saveButton = 'Save markers';
 	showButton = 'Show markers';
+	showPreloader = true;
+
 	markers = DG.featureGroup();
 	isShow = true;
 	map: any;
@@ -26,6 +33,10 @@ export class MapComponent implements OnInit {
 		
 			this.map.on('click', this.eventHandler.bind(this));
 			this.markers.addTo(this.map);
+
+			// this.mapService.loadUserMarkers('22').subscribe(
+			// 	(data) => {}
+			// );
 		})
 	}
 
@@ -33,7 +44,9 @@ export class MapComponent implements OnInit {
 		DG.marker([e.latlng.lat, e.latlng.lng]).addTo(this.markers);
 	}
 
-	saveMarkers() {}
+	saveMarkers() {
+		
+	}
 
 	toggleMarkers(e) {
 		e.stopPropagation();

@@ -68,6 +68,8 @@ export class FormLoginComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.userService.login(this.loginForm.value)
+		this.userService.login(this.loginForm.value).subscribe(
+			(data) => {}
+		);
 	}
 }
