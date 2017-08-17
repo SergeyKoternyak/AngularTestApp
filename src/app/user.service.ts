@@ -6,10 +6,10 @@ export class UserService {
 	constructor(private http: HttpClient) {}
 		
 	login(userData) {
-		return this.http.post('http://localhost:8000/api/login', userData)
+		return this.http.post('http://localhost:3000/user/login', userData)
 	}
 
 	registration(userData) {
-		return this.http.post('http://localhost:8000/api/registration', userData)
+		return this.http.post('http://localhost:3000/user/registration', userData)
 	}
 }

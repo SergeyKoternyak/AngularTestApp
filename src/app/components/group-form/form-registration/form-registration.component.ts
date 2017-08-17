@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { UserService } from '../user.service';
+import { UserService } from '../../../user.service';
 
 @Component({
 	selector: 'form-registration',
@@ -9,6 +9,7 @@ import { UserService } from '../user.service';
 	styleUrls: ['form-registration.component.less']
 })
 export class FormRegistrationComponent implements OnInit {
+	@Output() onSuccess: EventEmitter<any> = new EventEmitter();
 	constructor(private fb: FormBuilder, private userService: UserService) {}
 
 	registrationForm: FormGroup;
@@ -78,9 +79,11 @@ export class FormRegistrationComponent implements OnInit {
 
 	onSubmit() {
 		this.userService.registration(this.registrationForm.value).subscribe(
-			(data) => {
-				console.log(data);
-			}
+			(data: any) => {
+				if (data.status === 'ok') {
+					this.onSuccess.emit({});
+				}
+			} 
 		);
 	}
 }

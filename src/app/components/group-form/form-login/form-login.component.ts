@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { UserService } from '../user.service';
+import { UserService } from '../../../user.service';
 
 @Component({
 	selector: 'form-login',
@@ -69,7 +69,9 @@ export class FormLoginComponent implements OnInit {
 
 	onSubmit() {
 		this.userService.login(this.loginForm.value).subscribe(
-			(data) => {}
+			(data) => {
+				console.log(data)
+			}
 		);
 	}
 }

@@ -15,5 +15,8 @@ export class GroupFormComponent {
 	isActiveTab(tabName: string): boolean {
 		return this.activeTab === tabName;
 	}
-
+	
+	onSuccessRegistration() {
+		this.activeTab = 'signIn';
+	}
 }

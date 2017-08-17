@@ -6,6 +6,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { PageLoginModule } from './components/page-login/page-login.module';
 import { PageMainModule } from './components/page-main/page-main.module';
+import { UserService } from './user.service';
 
 @NgModule({
 	declarations: [
@@ -19,7 +20,7 @@ import { PageMainModule } from './components/page-main/page-main.module';
 		PageLoginModule,
 		PageMainModule,
 	],
-	providers: [],
+	providers: [UserService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}

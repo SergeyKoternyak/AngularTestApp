@@ -37,6 +37,7 @@ export class MapComponent implements OnInit {
 			// this.mapService.loadUserMarkers('22').subscribe(
 			// 	(data) => {}
 			// );
+			this.showPreloader = false;
 		})
 	}
 

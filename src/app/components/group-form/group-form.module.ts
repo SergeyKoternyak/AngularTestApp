@@ -5,7 +5,6 @@ import { FormLoginComponent } from './form-login/form-login.component';
 import { FormRegistrationComponent } from './form-registration/form-registration.component';
 import { GroupFormComponent } from './group-form.component';
 import { NgModule } from '@angular/core';
-import { UserService } from './user.service'
 
 @NgModule({
 	declarations: [
@@ -17,7 +16,6 @@ import { UserService } from './user.service'
 		CommonModule,
 		ReactiveFormsModule
 	],
-	providers: [UserService],
 	exports: [GroupFormComponent]
 })
 export class GroupFormModule {}
