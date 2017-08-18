@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { Router } from '@angular/router';
 import { UserService } from '../../../user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from '../../../user.service';
 	styleUrls: ['form-login.component.less']
 })
 export class FormLoginComponent implements OnInit {
-	constructor(private fb: FormBuilder, private userService: UserService) {}
+	constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {}
 
 	loginForm: FormGroup;
 
@@ -69,7 +70,17 @@ export class FormLoginComponent implements OnInit {
 
 	onSubmit() {
 		this.userService.login(this.loginForm.value).subscribe(
-			(data) => {
+			(data: any) => {
+				if (data.status === 'ok') {
+					// this.router.navigate(['./main'])
+				}
+			}
+		);
+	}
+
+	signOut() {
+		this.userService.signout().subscribe(
+			(data: any) => {
 				console.log(data)
 			}
 		);

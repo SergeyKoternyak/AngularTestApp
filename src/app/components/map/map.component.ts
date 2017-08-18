@@ -16,7 +16,7 @@ export class MapComponent implements OnInit {
 	
 	saveButton = 'Save markers';
 	showButton = 'Show markers';
-	showPreloader = true;
+	showPreloader = false;
 
 	markers = DG.featureGroup();
 	isShow = true;
@@ -31,22 +31,25 @@ export class MapComponent implements OnInit {
 				doubleClickZoom: false
 			});
 		
-			this.map.on('click', this.eventHandler.bind(this));
+			this.map.on('click', this.addMarker.bind(this));
 			this.markers.addTo(this.map);
 
-			// this.mapService.loadUserMarkers('22').subscribe(
-			// 	(data) => {}
-			// );
+			
 			this.showPreloader = false;
 		})
 	}
 
-	eventHandler(e) {
+	addMarker(e) {
 		DG.marker([e.latlng.lat, e.latlng.lng]).addTo(this.markers);
 	}
 
 	saveMarkers() {
-		
+		console.log('load')
+		this.mapService.loadUserMarkers().subscribe(
+			(data) => {
+				console.log(data)
+			}
+		);
 	}
 
 	toggleMarkers(e) {

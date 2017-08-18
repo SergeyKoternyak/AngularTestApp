@@ -5,7 +5,11 @@ import { Injectable } from '@angular/core';
 export class MapService {
 	constructor(private http: HttpClient) {}
 		
-	loadUserMarkers(userId) {
-		return this.http.post('http://localhost:8000/api/markers', userId)
+	loadUserMarkers() {
+		return this.http.get('http://localhost:3000/markers');
+	}
+
+	saveUserMarkers() {
+		// return this.http.post('http://localhost:3000/markers');
 	}
 }

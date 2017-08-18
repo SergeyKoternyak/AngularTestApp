@@ -24,6 +24,7 @@
 			   formControlName="email">
 
 		<div *ngIf="formErrors.email" class="alert alert-danger">{{ formErrors.email }}</div>
+		<div *ngIf="userExists" class="alert alert-danger">{{ userExistsText }}</div>
 	</div>
 
 	<div class="form-group">
