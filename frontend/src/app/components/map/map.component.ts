@@ -46,6 +46,21 @@ export class MapComponent implements OnInit {
 						this.DGmarkerGroup.addTo(this.map);
 						
 						this.map.on('click', this.addMarker.bind(this));
+
+						this.map.locate()
+							.on('locationfound', e => {
+								DG.popup()
+									.setLatLng([e.latitude, e.longitude])
+									.setContent('Вы находитесь тут')
+									.openOn(this.map);
+
+							})
+							.on('locationerror', e => {
+								DG.popup()
+									.setLatLng(this.map.getCenter())
+									.setContent('Доступ к определению местоположения отключён')
+									.openOn(this.map);
+							});
 					})
 				}
 			);

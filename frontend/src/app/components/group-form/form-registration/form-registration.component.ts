@@ -11,6 +11,7 @@ import { UserService } from '../../../user.service';
 export class FormRegistrationComponent implements OnInit {
 	@Output() onSuccess: EventEmitter<any> = new EventEmitter();
 	constructor(private fb: FormBuilder, private userService: UserService) {}
+	
 	userExists = false;
 	userExistsText:string;
 	
@@ -82,7 +83,6 @@ export class FormRegistrationComponent implements OnInit {
 	onSubmit() {
 		this.userService.registration(this.registrationForm.value).subscribe(
 			(data: any) => {
-				console.log(data);
 				if (data.status === 'save') {
 					this.onSuccess.emit({});
 				} else {
