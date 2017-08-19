@@ -25,45 +25,44 @@ export class MapComponent implements OnInit {
 	showButton = 'Show markers';
 
 	ngOnInit() {
-		if (!this.userLoginNow) {
-			this.router.navigate(['./login']);
-		} else {
+		if (this.userLoginNow) {
 			this.mapService.loadUserMarkers({ userId: this.userLoginNow }).subscribe((data: any) => {
-					this.markersArr = data;
-	
-					DG.then(() => {
-						this.map = DG.map('map', {
-							center: [46.48, 30.74],
-							zoom: 11,
-							fullscreenControl: false,
-							doubleClickZoom: false
-						});
+				this.markersArr = data;
+
+				DG.then(() => {
+					this.map = DG.map('map', {
+						center: [46.48, 30.74],
+						zoom: 11,
+						fullscreenControl: false,
+						doubleClickZoom: false
+					});
+				
+					this.markersArr.forEach(item => {
+						DG.marker(item).addTo(this.DGmarkerGroup);
+					});
 					
-						this.markersArr.forEach(item => {
-							DG.marker(item).addTo(this.DGmarkerGroup);
+					this.DGmarkerGroup.addTo(this.map);
+					
+					this.map.on('click', this.addMarker.bind(this));
+
+					this.map.locate()
+						.on('locationfound', e => {
+							DG.popup()
+								.setLatLng([e.latitude, e.longitude])
+								.setContent('Вы находитесь тут')
+								.openOn(this.map);
+
+						})
+						.on('locationerror', e => {
+							DG.popup()
+								.setLatLng(this.map.getCenter())
+								.setContent('Доступ к определению местоположения отключён')
+								.openOn(this.map);
 						});
-						
-						this.DGmarkerGroup.addTo(this.map);
-						
-						this.map.on('click', this.addMarker.bind(this));
-
-						this.map.locate()
-							.on('locationfound', e => {
-								DG.popup()
-									.setLatLng([e.latitude, e.longitude])
-									.setContent('Вы находитесь тут')
-									.openOn(this.map);
-
-							})
-							.on('locationerror', e => {
-								DG.popup()
-									.setLatLng(this.map.getCenter())
-									.setContent('Доступ к определению местоположения отключён')
-									.openOn(this.map);
-							});
-					})
-				}
-			);
+				})
+			});
+		} else {
+			this.router.navigate(['./login']);
 		}
 	}
 
@@ -80,13 +79,16 @@ export class MapComponent implements OnInit {
 		this.mapService.saveUserMarkers({
 			markersUserId: localStorage.userLogin,
 			markers: this.markersArr
-		}).subscribe((data: any) => {
+		}).subscribe(
+		/* 	(data: any) => {
 			console.log(data)
-		});
+		} */
+	);
 	}
 
 	toggleMarkers(e) {
 		e.stopPropagation();
+		
 		this.isShowMarkers = !this.isShowMarkers;
 		this.isShowMarkers ? this.DGmarkerGroup.addTo(this.map) : this.DGmarkerGroup.removeFrom(this.map);
 	}

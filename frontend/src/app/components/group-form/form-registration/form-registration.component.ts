@@ -81,15 +81,13 @@ export class FormRegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.userService.registration(this.registrationForm.value).subscribe(
-			(data: any) => {
-				if (data.status === 'save') {
-					this.onSuccess.emit({});
-				} else {
-					this.userExists = true;
-					this.userExistsText = data.status;
-				}
-			} 
-		);
+		this.userService.registration(this.registrationForm.value).subscribe((data: any) => {
+			if (data.status === 'save') {
+				this.onSuccess.emit({});
+			} else {
+				this.userExists = true;
+				this.userExistsText = data.status;
+			}
+		});
 	}
 }

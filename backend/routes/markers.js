@@ -19,13 +19,15 @@ router.post('/save', (req, res) => {
         { markersUserId: req.body.markersUserId },
         { $set: { markers: req.body.markers } },
         { new: true },
-        (err, doc) => {
+        (err, userMarkers) => {
             if (err) { return console.log(err); }
-            return
+
+            if (!userMarkers) {
+                new Markers(req.body).save(); 
+            }
         }
     );
 
-    new Markers(req.body).save(); 
 });
 
 module.exports = router;

@@ -44,10 +44,4 @@ router.post('/registration', (req, res) => {
     });
 });
 
-router.post('/get', (req, res) => {
-
-    console.log('map')
-    res.send({status: 'hello'})
-});
-
 module.exports = router;

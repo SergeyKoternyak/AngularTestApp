@@ -74,6 +74,12 @@ export class FormLoginComponent implements OnInit {
 
 	onSubmit() {
 		this.userService.login(this.loginForm.value).subscribe((data: any) => {
+			if (data.status === 'ok') {
+				localStorage.setItem('userLogin', data.userId);
+				this.userLoginNow = true;
+				this.router.navigate(['./main']);
+			}
+			
 			if (data.status === 'wrongEmail') {
 				this.wrongEmail = data.message;
 			} else {
@@ -84,12 +90,6 @@ export class FormLoginComponent implements OnInit {
 				this.wrongPassword = data.message;
 			} else {
 				this.wrongPassword = '';
-			}
-
-			if (data.status === 'ok') {
-				localStorage.setItem('userLogin', data.userId);
-				this.userLoginNow = true;
-				this.router.navigate(['./main']);
 			}
 		});
 	}
