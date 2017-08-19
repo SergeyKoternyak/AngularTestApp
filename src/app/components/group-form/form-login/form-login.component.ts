@@ -11,7 +11,11 @@ import { UserService } from '../../../user.service';
 })
 export class FormLoginComponent implements OnInit {
 	constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {}
-
+	
+	userLoginNow = localStorage.userLogin;
+	wrongEmail: string;
+	wrongPassword: string;
+	
 	loginForm: FormGroup;
 
 	formErrors = {
@@ -69,20 +73,29 @@ export class FormLoginComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.userService.login(this.loginForm.value).subscribe(
-			(data: any) => {
-				if (data.status === 'ok') {
-					// this.router.navigate(['./main'])
-				}
+		this.userService.login(this.loginForm.value).subscribe((data: any) => {
+			if (data.status === 'wrongEmail') {
+				this.wrongEmail = data.message;
+			} else {
+				this.wrongEmail = '';
 			}
-		);
+
+			if (data.status === 'wrongPassword') {
+				this.wrongPassword = data.message;
+			} else {
+				this.wrongPassword = '';
+			}
+
+			if (data.status === 'ok') {
+				localStorage.setItem('userLogin', data.userId);
+				this.userLoginNow = true;
+				this.router.navigate(['./main']);
+			}
+		});
 	}
 
 	signOut() {
-		this.userService.signout().subscribe(
-			(data: any) => {
-				console.log(data)
-			}
-		);
+		localStorage.clear();
+		this.userLoginNow = false;
 	}
 }

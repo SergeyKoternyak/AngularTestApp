@@ -1,5 +1,6 @@
 <form [formGroup]="loginForm"
-	  (ngSubmit)="onSubmit(loginForm)">
+	  (ngSubmit)="onSubmit(loginForm)"
+	  *ngIf="!userLoginNow">
 
 	<div class="form-group">
 		<label for="login-email">Email</label>
@@ -11,6 +12,7 @@
 			   formControlName="email">
 
 		<div *ngIf="formErrors.email" class="alert alert-danger">{{ formErrors.email }}</div>
+		<div *ngIf="wrongEmail" class="alert alert-danger">{{ wrongEmail }}</div>
 	</div>
 
 	<div class="form-group">
@@ -23,6 +25,7 @@
 			   formControlName="password">
 		
 		<div *ngIf="formErrors.password" class="alert alert-danger">{{ formErrors.password }}</div>
+		<div *ngIf="wrongPassword" class="alert alert-danger">{{ wrongPassword }}</div>
 	</div>
 	
 	<button type="submit" 
@@ -32,9 +35,12 @@
 	</button>
 </form>
 
-<div class="signout">
-	<button type="submit" (click)="signOut()"
-		class="btn btn-default">
+<div *ngIf="userLoginNow"
+	 class="signout">
+
+	<button (click)="signOut()"
+			type="submit"
+			class="btn btn-default">
 		Sign out
 	</button>
 </div>
